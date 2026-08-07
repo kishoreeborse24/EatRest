@@ -1,0 +1,11 @@
+{
+  "name": "EatRest",
+  "short_name": "EatRest",
+  "start_url": "./",
+  "display": "standalone",
+  "background_color": "#f6f3eb",
+  "theme_color": "#0f172a",
+  "icons": [
+    { "src": "./favicon.png", "sizes": "16x16", "type": "image/png" }
+  ]
+}

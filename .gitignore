@@ -1,0 +1,19 @@
+# Root-level workspace
+node_modules/
+**/node_modules/
+**/dist/
+**/.env
+.env
+.env.*
+*.log
+npm-debug.log*
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+coverage/
+*.local
+
+# Build artifacts
+frontend/dist/
+backend/uploads/

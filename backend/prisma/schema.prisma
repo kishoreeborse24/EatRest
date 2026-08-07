@@ -1,0 +1,84 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id             String    @id @default(uuid())
+  name           String
+  email          String    @unique
+  passwordHash   String
+  role           String    @default("customer")
+  phone          String?
+  address        String?
+  city           String?
+  state          String?
+  pincode        String?
+  birthday       DateTime?
+  anniversary    DateTime?
+  orders         Order[]
+  createdAt      DateTime  @default(now())
+  updatedAt      DateTime  @updatedAt
+}
+
+model Category {
+  id      String  @id @default(uuid())
+  name    String
+  slug    String  @unique
+  foods   Food[]
+}
+
+model Food {
+  id          String    @id @default(uuid())
+  name        String
+  description String?
+  price       Float
+  image       String?
+  veg         Boolean   @default(false)
+  badge       String?
+  offer       String?
+  rating      Float?    @default(0)
+  category    Category? @relation(fields: [categoryId], references: [id])
+  categoryId  String?
+  createdAt   DateTime  @default(now())
+}
+
+model Coupon {
+  id            String   @id @default(uuid())
+  code          String   @unique
+  type          String   // percent|fixed|gift
+  value         Float?   // percent (e.g., 10 for 10%) or fixed amount
+  minAmount     Float?   @default(0)
+  giftName      String?
+  giftDesc      String?
+  expiresAt     DateTime?
+  active        Boolean  @default(true)
+  createdAt     DateTime @default(now())
+}
+
+model Order {
+  id          String      @id @default(uuid())
+  user        User?       @relation(fields: [userId], references: [id])
+  userId      String?
+  total       Float
+  discount    Float       @default(0)
+  couponCode  String?
+  giftName    String?
+  status      String      @default("Pending")
+  items       OrderItem[]
+  createdAt   DateTime    @default(now())
+}
+
+model OrderItem {
+  id        String  @id @default(uuid())
+  order     Order   @relation(fields: [orderId], references: [id])
+  orderId   String
+  foodId    String
+  name      String
+  price     Float
+  quantity  Int
+}
