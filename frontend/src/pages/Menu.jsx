@@ -442,257 +442,214 @@ export default function Menu() {
     if (!matchesVegFilter(f)) return false;
     return true;
   });
+return (
+  <div className="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8">
+    {/* Category Nav */}
+    <div className="flex flex-wrap justify-center items-center gap-6 sm:gap-10 border-b border-slate-100 pb-4 mb-10">
+      <button
+        onClick={() => setCategory('')}
+        className={`relative pb-3 text-sm sm:text-base font-semibold uppercase tracking-wider transition-colors duration-300 ${category === '' ? 'text-orange-600' : 'text-slate-500 hover:text-slate-800'
+          }`}
+      >
+        Today's Menue
+        {category === '' && (
+          <motion.div layoutId="activeCategory" className="absolute bottom-0 left-0 right-0 h-[3px] bg-slate-600 rounded-full" />
+        )}
+      </button>
+      {categories.map((cat) => (
+        <button
+          key={cat.id}
+          onClick={() => setCategory(cat.id)}
+          className={`relative pb-3 text-sm sm:text-base font-semibold uppercase tracking-wider transition-colors duration-300 ${category === cat.id ? 'text-[#ce1212]' : 'text-slate-500 hover:text-slate-800'
+            }`}
+        >
+          {cat.name}
+          {category === cat.id && (
+            <motion.div layoutId="activeCategory" className="absolute bottom-0 left-0 right-0 h-[3px] bg-[#ce1212] rounded-full" />
+          )}
+        </button>
+      ))}
+    </div>
 
-  return (
-    <div className="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8">
-      <div className="rounded-4xl border border-slate-200 bg-white/95 p-6 sm:p-10 shadow-[0_25px_70px_rgba(15,23,42,0.04)] backdrop-blur">
+    {/* Page title */}
+    <div className="text-center mb-12">
+      <h2 className="mt-2 text-4xl font-extrabold uppercase tracking-widest text-slate-600" style={{ fontFamily: 'Georgia, serif' }}>
+        {category === '' ? 'Our Specialties' : (categoryMap[category] || 'Specialties')}
+      </h2>
+    </div>
 
-        {/* Category Nav */}
-        <div className="flex flex-wrap justify-center items-center gap-6 sm:gap-10 border-b border-slate-100 pb-4 mb-10">
-          <button
-            onClick={() => setCategory('')}
-            className={`relative pb-3 text-sm sm:text-base font-semibold uppercase tracking-wider transition-colors duration-300 ${category === '' ? 'text-orange-600' : 'text-slate-500 hover:text-slate-800'
-              }`}
-          >
-            Today's Menue
-            {category === '' && (
-              <motion.div layoutId="activeCategory" className="absolute bottom-0 left-0 right-0 h-[3px] bg-slate-600 rounded-full" />
-            )}
-          </button>
-          {categories.map((cat) => (
-            <button
-              key={cat.id}
-              onClick={() => setCategory(cat.id)}
-              className={`relative pb-3 text-sm sm:text-base font-semibold uppercase tracking-wider transition-colors duration-300 ${category === cat.id ? 'text-[#ce1212]' : 'text-slate-500 hover:text-slate-800'
-                }`}
-            >
-              {cat.name}
-              {category === cat.id && (
-                <motion.div layoutId="activeCategory" className="absolute bottom-0 left-0 right-0 h-[3px] bg-[#ce1212] rounded-full" />
+    {/* Two-column layout */}
+    <div className="grid gap-8 lg:grid-cols-[1.95fr_0.85fr] items-start">
+
+      {/* LEFT – menu items */}
+      <div className="space-y-12">
+
+        {/* ── Favorites section ── */}
+        {favorites.length > 0 && (
+          <section className="rounded-3xl border border-rose-100 bg-rose-50/40 p-5 sm:p-6">
+            <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between mb-5">
+              <div className="flex flex-wrap items-center gap-2">
+                <FaHeart className="text-[#ce1212] text-lg" />
+                <h3 className="text-xl font-bold text-slate-800">Your Favorites</h3>
+                <span className="rounded-full bg-[#ce1212] text-white text-[11px] font-bold px-2 py-0.5">{favorites.length}</span>
+              </div>
+              <button
+                onClick={() => setShowFavorites((v) => !v)}
+                className="w-full rounded-full border border-slate-200 bg-white px-4 py-2 text-sm font-semibold text-slate-600 transition hover:border-slate-300 hover:text-slate-800 sm:w-auto"
+              >
+                {showFavorites ? 'Hide Favorites ▲' : 'Show Favorites ▼'}
+              </button>
+            </div>
+
+            <div className={`overflow-hidden transition-all duration-300 ${showFavorites ? 'max-h-[2000px] opacity-100' : 'max-h-0 opacity-0'}`}>
+              {filteredFavorites.length === 0 ? (
+                <p className="text-sm text-slate-500 text-center py-4">No favorites match the current filters.</p>
+              ) : (
+                <div className={`grid grid-cols-1 gap-5 sm:grid-cols-2 xl:grid-cols-3 ${showFavorites ? 'block' : 'hidden'}`}>
+                  {filteredFavorites.map((food) => renderFoodCard(food))}
+                </div>
               )}
-            </button>
-          ))}
-        </div>
+            </div>
+          </section>
+        )}
 
-        {/* Page title */}
-        <div className="text-center mb-12">
-          {/* <p className="text-xs tracking-[0.3em] uppercase text-slate-400 font-bold">Menu</p> */}
-          <h2 className="mt-2 text-4xl font-extrabold uppercase tracking-widest text-slate-600" style={{ fontFamily: 'Georgia, serif' }}>
-            {category === '' ? 'Our Specialties' : (categoryMap[category] || 'Specialties')}
-          </h2>
-        </div>
-
-        {/* Two-column layout */}
-        <div className="grid gap-8 lg:grid-cols-[1.95fr_0.85fr] items-start">
-
-          {/* LEFT – menu items */}
-          <div className="space-y-12">
-
-            {/* ── Favorites section ── */}
-            {favorites.length > 0 && (
-              <section className="rounded-3xl border border-rose-100 bg-rose-50/40 p-5 sm:p-6">
-                <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between mb-5">
-                  <div className="flex flex-wrap items-center gap-2">
-                    <FaHeart className="text-[#ce1212] text-lg" />
-                    <h3 className="text-xl font-bold text-slate-800">Your Favorites</h3>
-                    <span className="rounded-full bg-[#ce1212] text-white text-[11px] font-bold px-2 py-0.5">{favorites.length}</span>
-                  </div>
-                  <button
-                    onClick={() => setShowFavorites((v) => !v)}
-                    className="w-full rounded-full border border-slate-200 bg-white px-4 py-2 text-sm font-semibold text-slate-600 transition hover:border-slate-300 hover:text-slate-800 sm:w-auto"
-                  >
-                    {showFavorites ? 'Hide Favorites ▲' : 'Show Favorites ▼'}
-                  </button>
-                </div>
-
-                <div className={`overflow-hidden transition-all duration-300 ${showFavorites ? 'max-h-[2000px] opacity-100' : 'max-h-0 opacity-0'}`}>
-                  {filteredFavorites.length === 0 ? (
-                    <p className="text-sm text-slate-500 text-center py-4">No favorites match the current filters.</p>
-                  ) : (
-                    <div className={`grid grid-cols-1 gap-5 sm:grid-cols-2 xl:grid-cols-3 ${showFavorites ? 'block' : 'hidden'}`}>
-                      {filteredFavorites.map((food) => renderFoodCard(food))}
-                    </div>
-                  )}
-                </div>
-
-                {/* {!showFavorites && (
-                  <p className="text-xs text-slate-500">Click <strong>Show ▼</strong> to see your saved items.</p>
-                )} */}
-              </section>
-            )}
-
-            {/* ── Main menu grid ── */}
-            {error ? (
-              <div className="rounded-3xl border border-rose-200 bg-rose-50 p-6 text-rose-700 text-center">{error}</div>
-            ) : loading ? (
-              <div className="rounded-3xl border border-slate-200 bg-slate-50 p-10 text-slate-700 text-center">
-                Loading delicious menu items…
-              </div>
-            ) : foods.length === 0 ? (
-              <div className="rounded-3xl border border-slate-200 bg-[#fcfbf7] p-16 text-center text-slate-600">
-                No menu items found. Try adjusting your filters.
-              </div>
-            ) : (
-              <section>
-                <div className="grid gap-x-5 gap-y-8 sm:grid-cols-2 xl:grid-cols-3">
-                  <AnimatePresence>
-                    {displayFoods.map((food) => renderFoodCard(food))}
-                  </AnimatePresence>
-                </div>
-              </section>
-            )}
+        {/* ── Main menu grid ── */}
+        {error ? (
+          <div className="rounded-3xl border border-rose-200 bg-rose-50 p-6 text-rose-700 text-center">{error}</div>
+        ) : loading ? (
+          <div className="rounded-3xl border border-slate-200 bg-slate-50 p-10 text-slate-700 text-center">
+            Loading delicious menu items…
           </div>
-
-          {/* RIGHT – filters + promos */}
-          <aside className="space-y-6 lg:sticky lg:top-6">
-
-            {/* Search & Filters */}
-            <div className="rounded-3xl border border-slate-200 bg-white p-6 shadow-sm space-y-4">
-              <h3 className="text-lg font-bold text-slate-800">Search &amp; Filters</h3>
-              <div className="space-y-3">
-                <label className="flex items-center gap-2 rounded-full border border-slate-200 px-4 py-2 bg-slate-50 focus-within:border-slate-400">
-                  <FaSearch className="text-slate-400 text-sm" />
-                  <input
-                    value={search}
-                    onChange={(e) => setSearch(e.target.value)}
-                    className="w-full bg-transparent outline-none text-sm text-slate-700"
-                    placeholder="Search food"
-                  />
-                </label>
-
-                <select
-                  value={sort}
-                  onChange={(e) => setSort(e.target.value)}
-                  className="w-full rounded-full border border-slate-200 px-4 py-2 bg-slate-50 outline-none text-sm text-slate-700"
-                >
-                  <option value="popularity">Sort by popularity</option>
-                  <option value="price-asc">Price: Low to High</option>
-                  <option value="price-desc">Price: High to Low</option>
-                </select>
-
-                <label className="flex items-center gap-2.5 rounded-full bg-slate-50 px-4 py-2 text-sm text-slate-700 cursor-pointer select-none">
-                  <input
-                    type="checkbox"
-                    checked={veg}
-                    onChange={() => {
-                      setVeg(!veg);
-                      if (!veg && nonVeg) setNonVeg(false);
-                    }}
-                    className="accent-emerald-800 w-4 h-4"
-                  />
-                  Vegetarian only
-                </label>
-
-                <label className="flex items-center gap-2.5 rounded-full bg-slate-50 px-4 py-2 text-sm text-slate-700 cursor-pointer select-none">
-                  <input
-                    type="checkbox"
-                    checked={nonVeg}
-                    onChange={() => {
-                      setNonVeg(!nonVeg);
-                      if (!nonVeg && veg) setVeg(false);
-                    }}
-                    className="accent-red-800 w-4 h-4"
-                  />
-                  Non-Vegetarian only
-                </label>
-              </div>
+        ) : foods.length === 0 ? (
+          <div className="rounded-3xl border border-slate-200 bg-[#fcfbf7] p-16 text-center text-slate-600">
+            No menu items found. Try adjusting your filters.
+          </div>
+        ) : (
+          <section>
+            <div className="grid gap-x-5 gap-y-8 sm:grid-cols-2 xl:grid-cols-3">
+              <AnimatePresence>
+                {displayFoods.map((food) => renderFoodCard(food))}
+              </AnimatePresence>
             </div>
-
-            {/* Favorites quick-count card */}
-            <div className="rounded-3xl border border-rose-100 bg-white p-5 shadow-sm flex items-center gap-4">
-              <div className="w-10 h-10 rounded-full bg-rose-50 flex items-center justify-center flex-shrink-0">
-                <FaHeart className="text-[#ce1212] text-base" />
-              </div>
-              <div className="flex-1 min-w-0">
-                <p className="text-sm font-bold text-slate-800">
-                  {favorites.length === 0 ? 'No favorites yet' : `${favorites.length} favorite${favorites.length > 1 ? 's' : ''} saved`}
-                </p>
-                <p className="text-xs text-slate-500 mt-0.5">Tap ♡ on any dish to save it</p>
-              </div>
-              {favorites.length > 0 && (
-                <button
-                  onClick={() => { setFavorites([]); localStorage.removeItem('eatrest_favorites'); toast('Favorites cleared'); }}
-                  className="text-[11px] text-slate-400 hover:text-rose-500 transition font-semibold flex-shrink-0"
-                >
-                  Clear
-                </button>
-              )}
-            </div>
-
-            {/* Promo Codes */}
-            <div className="rounded-3xl border border-emerald-100 bg-emerald-50/50 p-6 text-slate-700 shadow-sm">
-              <p className="text-xs font-semibold uppercase tracking-[0.2em] text-emerald-700">Promo codes</p>
-              <h4 className="mt-2 text-xl font-bold text-slate-900">Use at checkout</h4>
-              <p className="mt-2 text-xs text-slate-500 leading-relaxed">Apply a code on checkout to unlock discounts or special treats.</p>
-
-              <ul className="mt-4 space-y-3">
-                {promoCodes.map((promo) => (
-                  <li key={promo.code} className="rounded-2xl border border-emerald-100 bg-white p-3.5 shadow-sm">
-                    <div className="flex flex-wrap items-center justify-between gap-2">
-                      <div>
-                        <p className="text-sm font-bold text-slate-900">{promo.code}</p>
-                        <p className="mt-0.5 text-xs text-slate-500">{promo.title}</p>
-                      </div>
-                      <div className="flex items-center gap-1.5">
-                        <span className="rounded-full bg-emerald-50 px-2 py-0.5 text-[10px] font-medium text-emerald-700">{promo.description}</span>
-                        <button
-                          type="button"
-                          onClick={() => copyPromoCode(promo.code)}
-                          className="rounded-full bg-slate-950 px-3 py-1 text-[10px] font-bold text-white transition hover:bg-[#ce1212]"
-                        >
-                          Copy
-                        </button>
-                      </div>
-                    </div>
-                  </li>
-                ))}
-              </ul>
-
-              {copiedCode && <p className="mt-3 text-xs text-emerald-700 font-semibold">Copied {copiedCode}. Paste it in checkout.</p>}
-
-              <div className="mt-4 rounded-2xl bg-emerald-100/60 p-3.5 text-xs leading-relaxed text-slate-700">
-                <p className="font-semibold text-emerald-900">Birthday &amp; anniversary perks</p>
-                <p className="mt-1 text-slate-600">Enter <span className="font-semibold">BIRTHDAY</span> or <span className="font-semibold">ANNIVERSARY</span> at checkout to get free add-ons.</p>
-              </div>
-            </div>
-
-          </aside>
-        </div>
+          </section>
+        )}
       </div>
 
-      {/* Back to top */}
-      {/* {showBackToTop && (
-        <button
-          onClick={scrollToTop}
-          className="fixed bottom-4 right-4 z-50 rounded-full bg-orange-600 p-3 text-white shadow-xl transition-all duration-300 hover:scale-110 hover:bg-orange-700 active:scale-95 sm:bottom-6 sm:right-6"
-          title="Back to Top"
-        >
-          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2.5} stroke="currentColor" className="w-5 h-5">
-            <path strokeLinecap="round" strokeLinejoin="round" d="M4.5 15.75l7.5-7.5 7.5 7.5" />
-          </svg>
-        </button>
-      )} */}
+      {/* RIGHT – filters + promos */}
+      <aside className="space-y-6 lg:sticky lg:top-6">
 
+        {/* Search & Filters */}
+        <div className="rounded-3xl border border-slate-200 bg-white p-6 shadow-sm space-y-4">
+          <h3 className="text-lg font-bold text-slate-800">Search &amp; Filters</h3>
+          <div className="space-y-3">
+            <label className="flex items-center gap-2 rounded-full border border-slate-200 px-4 py-2 bg-slate-50 focus-within:border-slate-400">
+              <FaSearch className="text-slate-400 text-sm" />
+              <input
+                value={search}
+                onChange={(e) => setSearch(e.target.value)}
+                className="w-full bg-transparent outline-none text-sm text-slate-700"
+                placeholder="Search food"
+              />
+            </label>
 
-      {showBackToTop && (
-        <button
-          onClick={scrollToTop}
-          className="fixed bottom-4 right-4 z-50 rounded-full bg-orange-600 p-2.5 text-white shadow-xl transition-all duration-300 hover:scale-110 hover:bg-orange-700 active:scale-95 sm:bottom-6 sm:right-6 sm:p-3 md:bottom-8 md:right-8"
-          title="Back to Top"
-          aria-label="Back to Top"
-        >
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            fill="none"
-            viewBox="0 0 24 24"
-            strokeWidth={2.5}
-            stroke="currentColor"
-            className="h-4 w-4 sm:h-5 sm:w-5 md:h-6 md:w-6"
-          >
-            <path strokeLinecap="round" strokeLinejoin="round" d="M4.5 15.75l7.5-7.5 7.5 7.5" />
-          </svg>
-        </button>
-      )}
+            <select
+              value={sort}
+              onChange={(e) => setSort(e.target.value)}
+              className="w-full rounded-full border border-slate-200 px-4 py-2 bg-slate-50 outline-none text-sm text-slate-700"
+            >
+              <option value="popularity">Sort by popularity</option>
+              <option value="price-asc">Price: Low to High</option>
+              <option value="price-desc">Price: High to Low</option>
+            </select>
+
+            <label className="flex items-center gap-2.5 rounded-full bg-slate-50 px-4 py-2 text-sm text-slate-700 cursor-pointer select-none">
+              <input
+                type="checkbox"
+                checked={veg}
+                onChange={() => {
+                  setVeg(!veg);
+                  if (!veg && nonVeg) setNonVeg(false);
+                }}
+                className="accent-emerald-800 w-4 h-4"
+              />
+              Vegetarian only
+            </label>
+
+            <label className="flex items-center gap-2.5 rounded-full bg-slate-50 px-4 py-2 text-sm text-slate-700 cursor-pointer select-none">
+              <input
+                type="checkbox"
+                checked={nonVeg}
+                onChange={() => {
+                  setNonVeg(!nonVeg);
+                  if (!nonVeg && veg) setVeg(false);
+                }}
+                className="accent-red-800 w-4 h-4"
+              />
+              Non-Vegetarian only
+            </label>
+          </div>
+        </div>
+
+        {/* Favorites quick-count card */}
+        <div className="rounded-3xl border border-rose-100 bg-white p-5 shadow-sm flex items-center gap-4">
+          <div className="w-10 h-10 rounded-full bg-rose-50 flex items-center justify-center flex-shrink-0">
+            <FaHeart className="text-[#ce1212] text-base" />
+          </div>
+          <div className="flex-1 min-w-0">
+            <p className="text-sm font-bold text-slate-800">
+              {favorites.length === 0 ? 'No favorites yet' : `${favorites.length} favorite${favorites.length > 1 ? 's' : ''} saved`}
+            </p>
+            <p className="text-xs text-slate-500 mt-0.5">Tap ♡ on any dish to save it</p>
+          </div>
+          {favorites.length > 0 && (
+            <button
+              onClick={() => { setFavorites([]); localStorage.removeItem('eatrest_favorites'); toast('Favorites cleared'); }}
+              className="text-[11px] text-slate-400 hover:text-rose-500 transition font-semibold flex-shrink-0"
+            >
+              Clear
+            </button>
+          )}
+        </div>
+
+        {/* Promo Codes */}
+        <div className="rounded-3xl border border-emerald-100 bg-emerald-50/50 p-6 text-slate-700 shadow-sm">
+          <p className="text-xs font-semibold uppercase tracking-[0.2em] text-emerald-700">Promo codes</p>
+          <h4 className="mt-2 text-xl font-bold text-slate-900">Use at checkout</h4>
+          <p className="mt-2 text-xs text-slate-500 leading-relaxed">Apply a code on checkout to unlock discounts or special treats.</p>
+
+          <ul className="mt-4 space-y-3">
+            {promoCodes.map((promo) => (
+              <li key={promo.code} className="rounded-2xl border border-emerald-100 bg-white p-3.5 shadow-sm">
+                <div className="flex flex-wrap items-center justify-between gap-2">
+                  <div>
+                    <p className="text-sm font-bold text-slate-900">{promo.code}</p>
+                    <p className="mt-0.5 text-xs text-slate-500">{promo.title}</p>
+                  </div>
+                  <div className="flex items-center gap-1.5">
+                    <span className="rounded-full bg-emerald-50 px-2 py-0.5 text-[10px] font-medium text-emerald-700">{promo.description}</span>
+                    <button
+                      type="button"
+                      onClick={() => copyPromoCode(promo.code)}
+                      className="rounded-full bg-slate-950 px-3 py-1 text-[10px] font-bold text-white transition hover:bg-[#ce1212]"
+                    >
+                      Copy
+                    </button>
+                  </div>
+                </div>
+              </li>
+            ))}
+          </ul>
+
+          {copiedCode && <p className="mt-3 text-xs text-emerald-700 font-semibold">Copied {copiedCode}. Paste it in checkout.</p>}
+
+          <div className="mt-4 rounded-2xl bg-emerald-100/60 p-3.5 text-xs leading-relaxed text-slate-700">
+            <p className="font-semibold text-emerald-900">Birthday &amp; anniversary perks</p>
+            <p className="mt-1 text-slate-600">Enter <span className="font-semibold">BIRTHDAY</span> or <span className="font-semibold">ANNIVERSARY</span> at checkout to get free add-ons.</p>
+          </div>
+        </div>
+
+      </aside>
     </div>
-  );
-}
+  </div>
+ );
+ }

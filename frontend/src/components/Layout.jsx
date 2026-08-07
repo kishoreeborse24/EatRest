@@ -87,7 +87,7 @@ export default function Layout() {
               >
                 <FaShoppingBag className="h-4 w-4" />
                 {itemCount > 0 && (
-                  <span className="absolute -right-1 -top-1 flex h-5 min-w-[1.25rem] items-center justify-center rounded-full bg-orange-600 px-1 text-[10px] font-semibold text-white leading-5">{itemCount}</span>
+                  <span className="absolute -right-1 -top-1 flex h-4 min-w-[1rem] items-center justify-center rounded-full bg-emerald-600 px-1 text-[10px] font-semibold text-white leading-5">{itemCount}</span>
                 )}
               </button>
 
@@ -112,7 +112,7 @@ export default function Layout() {
               </button> */}
               <button onClick={() => setCartOpen((prev) => !prev)} className="relative rounded-full border border-[#e9dfcf] bg-[#fffdf9] p-3 text-orange-600 dark:border-slate-700 dark:bg-slate-800 dark:text-slate-200">
                 <FaShoppingBag />
-                {itemCount > 0 && <span className="absolute -right-1 -top-1 rounded-full bg-orange-600 px-1.5 py-0.5 text-[10px] font-semibold text-white">{itemCount}</span>}
+                {itemCount > 0 && <span className="absolute -right-1 -top-1 rounded-full bg-emerald-600 px-1.5 py-0.5 text-[10px] font-semibold text-white">{itemCount}</span>}
               </button>
               {user ? (
                 <>

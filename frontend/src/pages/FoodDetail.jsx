@@ -123,7 +123,7 @@ export default function FoodDetail() {
 
   return (
     <div className="mx-auto max-w-6xl px-4 py-16 sm:px-6 lg:px-8">
-      <Link to="/menu" className="inline-flex items-center gap-2 text-sm font-semibold text-[#4b6654] hover:text-[#33493d]"><FaArrowLeft /> Back to menu</Link>
+      {/* <Link to="/menu" className="inline-flex items-center gap-2 text-sm font-semibold text-[#4b6654] hover:text-[#33493d]"><FaArrowLeft /> Back to menu</Link> */}
       <div className="mt-8 grid gap-10 lg:grid-cols-[1.2fr_0.8fr] items-start">
         <div className="overflow-hidden rounded-[2rem] bg-[#fcfbf7] shadow-[0_30px_80px_rgba(15,23,42,0.09)]">
           <img
