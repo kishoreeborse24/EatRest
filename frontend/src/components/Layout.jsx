@@ -231,9 +231,23 @@ export default function Layout() {
                 <h4 className="text-lg font-bold text-white">Stay in the loop</h4>
                 <p className="mt-1 text-sm text-slate-400">Subscribe for exclusive offers, new menu drops, and event invites.</p>
               </div>
-              <form onSubmit={handleSubscribe} className="flex w-full max-w-md gap-2">
+              {/* <form onSubmit={handleSubscribe} className="flex w-full max-w-md gap-2">
                 <input name="footerEmail" type="email" placeholder="your@email.com" className="flex-1 rounded-full border border-slate-700 bg-slate-800 px-5 py-2.5 text-sm text-white placeholder-slate-500 outline-none focus:border-orange-500 focus:ring-2 focus:ring-orange-500/20 transition" />
                 <button type="submit" className="rounded-full bg-orange-600 px-6 py-2.5 text-sm font-bold text-white transition hover:bg-orange-500 hover:-translate-y-0.5 active:translate-y-0 shrink-0">Subscribe</button>
+              </form> */}
+              <form onSubmit={handleSubscribe} className="flex w-full max-w-md flex-col gap-3 sm:flex-row sm:gap-2">
+                <input
+                  name="footerEmail"
+                  type="email"
+                  placeholder="your@email.com"
+                  className="w-full flex-1 rounded-full border border-slate-700 bg-slate-800 px-4 py-2.5 text-sm text-white placeholder-slate-500 outline-none transition focus:border-orange-500 focus:ring-2 focus:ring-orange-500/20 sm:px-5"
+                />
+                <button
+                  type="submit"
+                  className="w-full shrink-0 rounded-full bg-orange-600 px-6 py-2.5 text-sm font-bold text-white transition hover:-translate-y-0.5 hover:bg-orange-500 active:translate-y-0 sm:w-auto"
+                >
+                  Subscribe
+                </button>
               </form>
             </div>
           </div>

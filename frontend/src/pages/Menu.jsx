@@ -23,62 +23,62 @@ import img12 from '../assets/Crispy Fish Fry.png';
 const DEMO_FOODS = [
   {
     id: 'd1', name: 'Paneer Butter Masala', description: 'Rich spiced paneer cubes in a tomato-cream gravy.',
-    price: 12.99, rating: 4.8, veg: true, category: 'mains', badge: '20% off',
+    price: 250, rating: 4.8, veg: true, category: 'mains', badge: '20% off',
     image: img1,
   },
   {
     id: 'd2', name: 'Harvest Garden Bowl', description: 'Roasted vegetables, grains, and tangy dressing in a fresh bowl.',
-    price: 9.49, rating: 4.6, veg: true, category: 'salad', badge: 'Hot',
+    price: 320, rating: 4.6, veg: true, category: 'salad', badge: 'Hot',
     image: img2,
   },
   {
     id: 'd3', name: 'Golden Pumpkin Soup', description: 'Silky pumpkin soup with warming spices and a swirl of cream.',
-    price: 10.99, rating: 4.5, veg: true, category: 'mains', badge: 'Chef\'s pick',
+    price: 380, rating: 4.5, veg: true, category: 'mains', badge: 'Chef\'s pick',
     image: img3,
   },
   {
     id: 'd4', name: 'Rainbow Veggie Bowl', description: 'Fresh seasonal greens, roasted veggies and creamy dressing.',
-    price: 8.49, rating: 4.4, veg: true, category: 'salad', badge: 'New',
+    price: 280, rating: 4.4, veg: true, category: 'salad', badge: 'New',
     image: img4,
   },
   {
     id: 'd5', name: 'Creamy Mushroom Soup', description: 'Earthy mushrooms in a rich, velvety broth.',
-    price: 6.99, rating: 4.9, veg: true, category: 'mains', badge: '15% off',
+    price: 270, rating: 4.9, veg: true, category: 'mains', badge: '15% off',
     image: img5,
   },
   {
     id: 'd6', name: 'Creamy Palak Paneer', description: 'Soft paneer in a spiced spinach curry.',
-    price: 17.99, rating: 4.7, veg: true, category: 'mains', badge: 'Limited',
+    price: 240, rating: 4.7, veg: true, category: 'mains', badge: 'Limited',
     image: img6,
   },
   {
     id: 'd7', name: 'Paneer Butter Masala', description: 'Paneer cubes simmered in a buttery tomato curry.',
-    price: 11.49, rating: 4.7, veg: true, category: 'mains', badge: 'Chef\'s pick',
+    price: 330, rating: 4.7, veg: true, category: 'mains', badge: 'Chef\'s pick',
     image: img7,
   },
   {
     id: 'd8', name: 'Classic Bhindi Masala', description: 'Stir-fried okra with aromatic Indian spices.',
-    price: 8.99, rating: 4.5, veg: true, category: 'mains', badge: 'Fresh',
+    price: 290, rating: 4.5, veg: true, category: 'mains', badge: 'Fresh',
     image: img8,
   },
   {
     id: 'd9', name: 'Classic Chicken Curry', description: 'Tender chicken simmered in a fragrant curry sauce.',
-    price: 13.49, rating: 4.8, veg: false, category: 'mains', badge: 'Spicy',
+    price: 380, rating: 4.8, veg: false, category: 'mains', badge: 'Spicy',
     image: img9,
   },
   {
     id: 'd10', name: 'Hyd Chicken Biryani', description: 'Aromatic basmati rice layered with spiced chicken.',
-    price: 15.99, rating: 4.6, veg: false, category: 'mains', badge: 'Popular',
+    price: 340, rating: 4.6, veg: false, category: 'mains', badge: 'Popular',
     image: img11,
   },
   {
     id: 'd11', name: 'Ruby Paneer Curry', description: 'Paneer simmered in a rich tomato and spice gravy.',
-    price: 7.59, rating: 4.9, veg: true, category: 'mains', badge: 'New',
+    price: 350, rating: 4.9, veg: true, category: 'mains', badge: 'New',
     image: img10,
   },
   {
     id: 'd12', name: 'Crispy Fish Fry', description: 'Spiced fish fillet crisped to perfection.',
-    price: 7.29, rating: 4.3, veg: false, category: 'mains', badge: 'Quick bite',
+    price: 450, rating: 4.3, veg: false, category: 'mains', badge: 'Quick bite',
     image: img12,
   },
 ];
@@ -395,7 +395,7 @@ export default function Menu() {
           {/* Price block */}
           <div className="mt-3">
             <div className="text-base font-extrabold text-[#ce1212]">
-                {discount ? (
+              {discount ? (
                 <div className="flex items-center justify-center gap-2">
                   <span>{formatPrice(discountedPrice)}</span>
                   <span className="text-xs text-slate-400 line-through font-normal">{formatPrice(food.price)}</span>
@@ -661,13 +661,34 @@ export default function Menu() {
       </div>
 
       {/* Back to top */}
-      {showBackToTop && (
+      {/* {showBackToTop && (
         <button
           onClick={scrollToTop}
           className="fixed bottom-4 right-4 z-50 rounded-full bg-orange-600 p-3 text-white shadow-xl transition-all duration-300 hover:scale-110 hover:bg-orange-700 active:scale-95 sm:bottom-6 sm:right-6"
           title="Back to Top"
         >
           <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2.5} stroke="currentColor" className="w-5 h-5">
+            <path strokeLinecap="round" strokeLinejoin="round" d="M4.5 15.75l7.5-7.5 7.5 7.5" />
+          </svg>
+        </button>
+      )} */}
+
+
+      {showBackToTop && (
+        <button
+          onClick={scrollToTop}
+          className="fixed bottom-4 right-4 z-50 rounded-full bg-orange-600 p-2.5 text-white shadow-xl transition-all duration-300 hover:scale-110 hover:bg-orange-700 active:scale-95 sm:bottom-6 sm:right-6 sm:p-3 md:bottom-8 md:right-8"
+          title="Back to Top"
+          aria-label="Back to Top"
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            fill="none"
+            viewBox="0 0 24 24"
+            strokeWidth={2.5}
+            stroke="currentColor"
+            className="h-4 w-4 sm:h-5 sm:w-5 md:h-6 md:w-6"
+          >
             <path strokeLinecap="round" strokeLinejoin="round" d="M4.5 15.75l7.5-7.5 7.5 7.5" />
           </svg>
         </button>

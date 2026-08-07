@@ -120,10 +120,10 @@ const timeline = [
 ];
 
 const stats = [
-  { label: 'Happy Guests', value: 48000, suffix: '+' },
-  { label: 'Menu Items', value: 60, suffix: '+' },
-  { label: 'Years of Excellence', value: 9, suffix: '' },
-  { label: 'Awards Won', value: 12, suffix: '' },
+  { label: 'Happy Guests', value: 12000, suffix: '+' },
+  { label: 'Menu Items', value: 35, suffix: '+' },
+  { label: 'Years of Excellence', value: 3, suffix: '' },
+  { label: 'Awards Won', value: 5, suffix: '' },
 ];
 
 // ─── Animated counter ────────────────────────────────────────────────────────
@@ -196,7 +196,7 @@ export default function About() {
 
         <div className="relative z-10 grid lg:grid-cols-2 gap-10 items-center">
           <div>
-            <p className="text-sm font-semibold uppercase tracking-[0.3em] text-white">Est. 2015 · Our Story</p>
+            <p className="text-sm font-semibold uppercase tracking-[0.3em] text-white">Our Story</p>
             <h1 className="mt-3 text-4xl sm:text-5xl font-extrabold leading-tight" style={{ fontFamily: 'Georgia, serif' }}>
               Where Every Meal<br />Becomes a Memory
             </h1>
@@ -217,7 +217,7 @@ export default function About() {
           <div className="grid grid-cols-2 gap-4">
             {stats.map((s) => (
               <div key={s.label} className="rounded-2xl bg-white/10 backdrop-blur p-5 text-center border border-white/20">
-                <p className="text-3xl font-extrabold">
+                <p className="text-2xl font-semibold">
                   <Counter value={s.value} suffix={s.suffix} />
                 </p>
                 <p className="mt-1 text-xs font-semibold uppercase tracking-widest text-white">{s.label}</p>
@@ -493,7 +493,7 @@ export default function About() {
             </Link>
             <a
               href="tel:+15551234567"
-              className="rounded-full bg-orange-600 px-8 py-3 text-sm font-semibold  text-slate-500 transition hover:bg-orange-600  hover:text-white hover:-translate-y-0.5 shadow-lg"
+              className="rounded-full bg-orange-600 px-8 py-3 text-sm font-semibold  text-white transition hover:bg-orange-50  hover:text-orange-600 hover:-translate-y-0.5 shadow-lg"
             >
               Call to Reserve
             </a>
